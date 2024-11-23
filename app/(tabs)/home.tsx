@@ -5,29 +5,34 @@ import EmptyState from "@/components/EmptyState";
 import SearchInputField from "@/components/SearchInputField";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, FlatList, Image, RefreshControl } from "react-native";
+import { getAllPosts, getLatestPosts } from "@/lib/appWrite";
+import useAppWrite from "@/lib/useAppWrite";
+import PostCard from "@/components/PostCard";
 
 const HomePage = () => {
+  const { data: posts, isLoading, reFetch } = useAppWrite(getAllPosts);
+  const { data: latestPosts } = useAppWrite(getLatestPosts);
   const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const onRefresh = async () => {
     setRefreshing(true);
-    // TODO: fetch data
+    reFetch();
     setRefreshing(false);
   };
 
   return (
     <SafeAreaView>
       <FlatList
-        data={[{ id: 1 }, { id: 2 }, { id: 3 }]}
-        keyExtractor={(item) => item.id.toString()}
-        renderItem={({ item }) => <Text>{item.id}</Text>}
+        data={posts}
+        keyExtractor={(item) => item.$id.toString()}
+        renderItem={({ item }) => <PostCard post={item} />}
         refreshControl={
           <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
         }
         ListEmptyComponent={() => (
           <EmptyState
-            title="No videos found"
-            subTitle="Be the first one to upload video!"
+            title="No images found"
+            subTitle="Be the first one to upload image!"
           />
         )}
         ListHeaderComponent={() => (
@@ -47,16 +52,12 @@ const HomePage = () => {
                 resizeMode="contain"
               />
             </View>
-            <SearchInputField
-              placeholder="Search"
-              handleChangeText={() => {}}
-              value="helo"
-            />
+            <SearchInputField />
             <View className="w-full flex-1 pt-5 pb-8">
               <Text className="text-lg mb-3 font-pregular text-gray-700">
-                Trending Videos
+                Trending Images
               </Text>
-              <Trending posts={[{ id: 1 }, { id: 2 }, { id: 3 }]} />
+              <Trending posts={latestPosts} />
             </View>
           </View>
         )}

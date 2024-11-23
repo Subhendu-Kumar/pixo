@@ -18,14 +18,11 @@ const Home = () => {
     <SafeAreaView className="h-full">
       <ScrollView contentContainerStyle={{ height: "100%" }}>
         <View className="w-full min-h-[80vh] justify-center mt-6 items-center px-4">
-          <View className="flex-row items-center justify-center">
-            <Image
-              source={images.logoSmall}
-              className="w-8 h-8"
-              resizeMode="contain"
-            />
-            <Text className="text-2xl font-pbold text-[#7a6a6a]">Pixo</Text>
-          </View>
+          <Image
+            source={images.pixo}
+            className="w-20 h-10"
+            resizeMode="contain"
+          />
           <Image
             source={images.cards}
             className="max-w-[380px] w-full h-[300px]"

@@ -37,14 +37,11 @@ const SignIn = () => {
     <SafeAreaView className="h-full bg-primary-100">
       <ScrollView>
         <View className="w-full min-h-[85vh] my-6 px-4 justify-center">
-          <View className="flex-row items-center">
-            <Image
-              source={images.logoSmall}
-              className="w-8 h-8"
-              resizeMode="contain"
-            />
-            <Text className="text-2xl font-pbold text-[#7a6a6a]">Pixo</Text>
-          </View>
+          <Image
+            source={images.pixo}
+            className="w-20 h-10"
+            resizeMode="contain"
+          />
           <Text className="text-2xl font-psemibold mt-10 text-[#7a6a6a]">
             Log in to Pixo
           </Text>

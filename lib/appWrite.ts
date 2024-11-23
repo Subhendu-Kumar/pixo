@@ -14,16 +14,16 @@ export const appWriteConfig = {
   databaseId: "673b8379002ff515765b",
   userCollectionId: "673b83ae002e2f79aa8f",
   videoCollectionId: "673b83e30026885b7515",
+  postCollectionId: "6741799f0018b7d58ae3",
   storageId: "673b865400143e14c027",
 };
 
-// Init your React Native SDK
 const client = new Client();
 
 client
-  .setEndpoint(appWriteConfig.endpoint) // Your Appwrite Endpoint
-  .setProject(appWriteConfig.projectId) // Your project ID
-  .setPlatform(appWriteConfig.platfrom); // Your application ID or bundle ID.
+  .setEndpoint(appWriteConfig.endpoint)
+  .setProject(appWriteConfig.projectId)
+  .setPlatform(appWriteConfig.platfrom);
 
 const account = new Account(client);
 const avatars = new Avatars(client);
@@ -91,6 +91,53 @@ export const getCurrentUser = async () => {
     return user.documents[0];
   } catch (error) {
     console.log(error);
+    throw new Error(error instanceof Error ? error.message : String(error));
+  }
+};
+
+export const getAllPosts = async () => {
+  try {
+    const posts = await databases.listDocuments(
+      appWriteConfig.databaseId,
+      appWriteConfig.postCollectionId
+    );
+    if (!posts) {
+      throw new Error("Something went wrong");
+    }
+    return posts;
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : String(error));
+  }
+};
+
+export const getLatestPosts = async () => {
+  try {
+    const posts = await databases.listDocuments(
+      appWriteConfig.databaseId,
+      appWriteConfig.postCollectionId,
+      [Query.orderDesc("$createdAt"), Query.limit(5)]
+    );
+    if (!posts) {
+      throw new Error("Something went wrong");
+    }
+    return posts;
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : String(error));
+  }
+};
+
+export const searchPosts = async (query: string) => {
+  try {
+    const posts = await databases.listDocuments(
+      appWriteConfig.databaseId,
+      appWriteConfig.postCollectionId,
+      [Query.search('title', query)]
+    );
+    if (!posts) {
+      throw new Error(`No Post found with this query: ${query}`);
+    }
+    return posts;
+  } catch (error) {
     throw new Error(error instanceof Error ? error.message : String(error));
   }
 };
