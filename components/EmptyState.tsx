@@ -14,7 +14,7 @@ const EmptyState = ({
   return (
     <View className="justify-center items-center px-4">
       <Image
-        source={images.empty}
+        source={images.empty2}
         className="w-[270px] h-[215px] opacity-40"
         resizeMode="contain"
       />

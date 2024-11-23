@@ -1,21 +1,21 @@
 import {
-  Account,
-  Avatars,
-  Client,
-  Databases,
   ID,
   Query,
+  Client,
+  Account,
+  Avatars,
+  Databases,
 } from "react-native-appwrite";
 
 export const appWriteConfig = {
-  endpoint: "https://cloud.appwrite.io/v1",
   platfrom: "com.subh.pixo",
   projectId: "673b818a0036f2423901",
+  storageId: "673b865400143e14c027",
   databaseId: "673b8379002ff515765b",
   userCollectionId: "673b83ae002e2f79aa8f",
-  videoCollectionId: "673b83e30026885b7515",
   postCollectionId: "6741799f0018b7d58ae3",
-  storageId: "673b865400143e14c027",
+  endpoint: "https://cloud.appwrite.io/v1",
+  videoCollectionId: "673b83e30026885b7515",
 };
 
 const client = new Client();
@@ -131,12 +131,40 @@ export const searchPosts = async (query: string) => {
     const posts = await databases.listDocuments(
       appWriteConfig.databaseId,
       appWriteConfig.postCollectionId,
-      [Query.search('title', query)]
+      [Query.search("title", query)]
     );
     if (!posts) {
       throw new Error(`No Post found with this query: ${query}`);
     }
     return posts;
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : String(error));
+  }
+};
+
+export const getPostByUserId = async (userId: string) => {
+  try {
+    const posts = await databases.listDocuments(
+      appWriteConfig.databaseId,
+      appWriteConfig.postCollectionId,
+      [Query.equal("users", userId)]
+    );
+    if (posts.documents.length === 0) {
+      throw new Error(`No Post found with this userId: ${userId}`);
+    }
+    return posts;
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : String(error));
+  }
+};
+
+export const signOut = async () => {
+  try {
+    const session = await account.deleteSession("current");
+    if (!session) {
+      throw new Error("Something went wrong");
+    }
+    return session;
   } catch (error) {
     throw new Error(error instanceof Error ? error.message : String(error));
   }

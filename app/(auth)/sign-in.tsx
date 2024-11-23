@@ -1,13 +1,15 @@
-import { View, Text, ScrollView, Image, Alert } from "react-native";
 import React, { useState } from "react";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { images } from "../../constants";
+import { Link, router } from "expo-router";
+import { useAuth } from "@/context/provider";
 import FormField from "@/components/FormField";
 import CustomButton from "@/components/CustomButton";
-import { Link, router } from "expo-router";
-import { signIn } from "@/lib/appWrite";
+import { getCurrentUser, signIn } from "@/lib/appWrite";
+import { SafeAreaView } from "react-native-safe-area-context";
+import { View, Text, ScrollView, Image, Alert } from "react-native";
 
 const SignIn = () => {
+  const { setUser, setIsLoggedIn } = useAuth();
   const [form, setForm] = useState({
     email: "",
     password: "",
@@ -21,8 +23,15 @@ const SignIn = () => {
     }
     setIsSubmitting(true);
     try {
-      const res = await signIn(form.email, form.password);
-      router.replace("/home");
+      await signIn(form.email, form.password);
+      const res = await getCurrentUser();
+      if (res) {
+        setUser(res);
+        setIsLoggedIn(true);
+        router.replace("/home");
+      } else {
+        Alert.alert("Error", "Something went wrong");
+      }
     } catch (error) {
       Alert.alert(
         "Error",

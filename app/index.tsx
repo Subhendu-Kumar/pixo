@@ -1,11 +1,11 @@
 import React from "react";
-import { Redirect, router } from "expo-router";
 import { images } from "../constants";
 import { StatusBar } from "expo-status-bar";
+import { useAuth } from "@/context/provider";
+import { Redirect, router } from "expo-router";
 import CustomButton from "@/components/CustomButton";
 import { Image, ScrollView, Text, View } from "react-native";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { useAuth } from "@/context/provider";
 
 const Home = () => {
   const { isLoading, isLoggedIn } = useAuth();

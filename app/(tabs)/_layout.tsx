@@ -1,8 +1,7 @@
-import { View, Image } from "react-native";
 import React from "react";
 import { Tabs } from "expo-router";
-
 import { icons } from "../../constants";
+import { View, Image } from "react-native";
 
 const TabIcon = ({
   icon,

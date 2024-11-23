@@ -1,13 +1,13 @@
 import {
   View,
   Text,
-  KeyboardTypeOptions,
+  Image,
   TextInput,
   TouchableOpacity,
-  Image,
+  KeyboardTypeOptions,
 } from "react-native";
-import React, { useState } from "react";
 import { icons } from "../constants";
+import React, { useState } from "react";
 
 const FormField = ({
   title,

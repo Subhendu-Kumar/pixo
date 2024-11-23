@@ -1,14 +1,12 @@
 import {
   View,
-  Text,
-  KeyboardTypeOptions,
-  TextInput,
-  TouchableOpacity,
   Image,
   Alert,
+  TextInput,
+  TouchableOpacity,
 } from "react-native";
-import React, { useState } from "react";
 import { icons } from "../constants";
+import React, { useState } from "react";
 import { router, usePathname } from "expo-router";
 
 const SearchInputField = ({ initialValue }: { initialValue?: string }) => {
