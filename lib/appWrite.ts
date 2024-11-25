@@ -5,6 +5,7 @@ import {
   Account,
   Avatars,
   Databases,
+  Storage,
 } from "react-native-appwrite";
 
 export const appWriteConfig = {
@@ -28,6 +29,7 @@ client
 const account = new Account(client);
 const avatars = new Avatars(client);
 const databases = new Databases(client);
+const storage = new Storage(client);
 
 export const createUser = async (
   email: string,
@@ -99,7 +101,8 @@ export const getAllPosts = async () => {
   try {
     const posts = await databases.listDocuments(
       appWriteConfig.databaseId,
-      appWriteConfig.postCollectionId
+      appWriteConfig.postCollectionId,
+      [Query.orderDesc("$createdAt")]
     );
     if (!posts) {
       throw new Error("Something went wrong");
@@ -147,7 +150,7 @@ export const getPostByUserId = async (userId: string) => {
     const posts = await databases.listDocuments(
       appWriteConfig.databaseId,
       appWriteConfig.postCollectionId,
-      [Query.equal("users", userId)]
+      [Query.equal("users", userId), Query.orderDesc("$createdAt")]
     );
     if (posts.documents.length === 0) {
       throw new Error(`No Post found with this userId: ${userId}`);
@@ -165,6 +168,30 @@ export const signOut = async () => {
       throw new Error("Something went wrong");
     }
     return session;
+  } catch (error) {
+    throw new Error(error instanceof Error ? error.message : String(error));
+  }
+};
+
+interface Post {
+  title: string;
+  image: string;
+  description: string;
+  users: string;
+}
+
+export const createPost = async (post: Post) => {
+  try {
+    const newPost = await databases.createDocument(
+      appWriteConfig.databaseId,
+      appWriteConfig.postCollectionId,
+      ID.unique(),
+      post
+    );
+    if (!newPost) {
+      throw new Error("Something went wrong");
+    }
+    return newPost;
   } catch (error) {
     throw new Error(error instanceof Error ? error.message : String(error));
   }
