@@ -1,13 +1,6 @@
+import { AuthContextType } from "@/types";
 import { getCurrentUser } from "@/lib/appWrite";
 import { createContext, useContext, useState, useEffect } from "react";
-
-interface AuthContextType {
-  user: any | null;
-  isLoading: boolean;
-  isLoggedIn: boolean;
-  setUser: React.Dispatch<React.SetStateAction<any | null>>;
-  setIsLoggedIn: React.Dispatch<React.SetStateAction<boolean>>;
-}
 
 const AuthContext = createContext<AuthContextType>({} as AuthContextType);
 

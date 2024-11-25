@@ -1,4 +1,3 @@
-import React from "react";
 import { images } from "../constants";
 import { StatusBar } from "expo-status-bar";
 import { useAuth } from "@/context/provider";

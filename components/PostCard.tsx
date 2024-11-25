@@ -1,18 +1,6 @@
-import React from "react";
+import { Post2 } from "@/types";
 import { icons } from "@/constants";
 import { View, Text, Image, TouchableOpacity } from "react-native";
-
-interface User {
-  username: string;
-  avatar: string;
-}
-
-interface Post {
-  title: string;
-  image: string;
-  description: string;
-  users: User;
-}
 
 const PostCard = ({
   post: {
@@ -22,7 +10,7 @@ const PostCard = ({
     users: { username, avatar },
   },
 }: {
-  post: Post;
+  post: Post2;
 }) => {
   return (
     <View className="flex-col items-center px-4 mb-14 ">

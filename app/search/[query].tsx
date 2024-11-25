@@ -1,5 +1,5 @@
+import { useEffect } from "react";
 import { icons } from "@/constants";
-import React, { useEffect } from "react";
 import useAppWrite from "@/lib/useAppWrite";
 import { searchPosts } from "@/lib/appWrite";
 import PostCard from "@/components/PostCard";

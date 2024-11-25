@@ -1,14 +1,5 @@
-import React from "react";
+import { CustomButtonProps } from "@/types";
 import { TouchableOpacity, Text, ActivityIndicator } from "react-native";
-
-interface CustomButtonProps {
-  title: string;
-  handlePress: () => void;
-  containerStyles?: string;
-  textStyles?: string;
-  isLoading?: boolean;
-  uploading?: boolean;
-}
 
 const CustomButton = ({
   title,

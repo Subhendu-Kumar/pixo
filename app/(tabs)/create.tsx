@@ -1,28 +1,29 @@
 import {
   View,
   Text,
-  SafeAreaView,
-  ScrollView,
-  TouchableOpacity,
   Image,
-  TextInput,
   Alert,
+  ScrollView,
+  SafeAreaView,
+  TouchableOpacity,
   ActivityIndicator,
 } from "react-native";
-import React, { useState } from "react";
-import FormField from "@/components/FormField";
-import { icons } from "@/constants";
-import CustomButton from "@/components/CustomButton";
-import * as DocumentPicker from "expo-document-picker";
 import axios from "axios";
+import { useState } from "react";
+import { icons } from "@/constants";
+import { BASE_URL } from "@/lib/utils";
 import { createPost } from "@/lib/appWrite";
 import { useAuth } from "@/context/provider";
+import { FormStateCreatePost } from "@/types";
+import FormField from "@/components/FormField";
+import CustomButton from "@/components/CustomButton";
+import * as DocumentPicker from "expo-document-picker";
 
 const Create = () => {
   const { user } = useAuth();
   const [uploading, setUploading] = useState<boolean>(false);
   const [imageUploading, setImageUploading] = useState<boolean>(false);
-  const [form, setForm] = useState({
+  const [form, setForm] = useState<FormStateCreatePost>({
     title: "",
     image: "",
     description: "",
@@ -51,15 +52,11 @@ const Create = () => {
         type: file.mimeType ?? "application/octet-stream",
       } as any);
       console.log("uploading image");
-      const response = await axios.post(
-        "https://media-cloud-bridge.vercel.app/upload/image",
-        image,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await axios.post(`${BASE_URL}/upload/image`, image, {
+        headers: {
+          "Content-Type": "multipart/form-data",
+        },
+      });
       console.log("response received");
       console.log(response);
       if (response.status === 200) {

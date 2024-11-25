@@ -1,32 +1,7 @@
-import {
-  FlatList,
-  ImageBackground,
-  TouchableOpacity,
-} from "react-native";
-import React, { useState } from "react";
+import { useState } from "react";
+import { zoomIn, zoomOut } from "@/lib/utils";
 import * as Animatable from "react-native-animatable";
-
-const zoomIn = {
-  0: {
-    scale: 0.9,
-    opacity: 0.7,
-  },
-  1: {
-    scale: 1,
-    opacity: 1,
-  },
-};
-
-const zoomOut = {
-  0: {
-    scale: 1,
-    opacity: 1,
-  },
-  1: {
-    scale: 0.9,
-    opacity: 0.7,
-  },
-};
+import { FlatList, ImageBackground, TouchableOpacity } from "react-native";
 
 const TrendingItem = ({ post, activeItem }: { post: any; activeItem: any }) => {
   return (

@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { images } from "../../constants";
+import { FormStateSignUp } from "@/types";
 import { Link, router } from "expo-router";
 import { createUser } from "@/lib/appWrite";
 import FormField from "@/components/FormField";
@@ -8,12 +9,12 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, ScrollView, Image, Alert } from "react-native";
 
 const SignUp = () => {
-  const [form, setForm] = useState({
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [form, setForm] = useState<FormStateSignUp>({
     username: "",
     email: "",
     password: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const submit = async () => {
     if (!form.username || !form.email || !form.password) {
@@ -22,7 +23,7 @@ const SignUp = () => {
     }
     setIsSubmitting(true);
     try {
-      const res = await createUser(form.email, form.password, form.username);
+      const res = await createUser(form);
       router.replace("/sign-in");
     } catch (error) {
       Alert.alert(

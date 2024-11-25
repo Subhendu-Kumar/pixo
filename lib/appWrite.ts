@@ -5,19 +5,9 @@ import {
   Account,
   Avatars,
   Databases,
-  Storage,
 } from "react-native-appwrite";
-
-export const appWriteConfig = {
-  platfrom: "com.subh.pixo",
-  projectId: "673b818a0036f2423901",
-  storageId: "673b865400143e14c027",
-  databaseId: "673b8379002ff515765b",
-  userCollectionId: "673b83ae002e2f79aa8f",
-  postCollectionId: "6741799f0018b7d58ae3",
-  endpoint: "https://cloud.appwrite.io/v1",
-  videoCollectionId: "673b83e30026885b7515",
-};
+import { appWriteConfig } from "./utils";
+import { FormStateSignIn, FormStateSignUp, Post } from "@/types";
 
 const client = new Client();
 
@@ -29,14 +19,10 @@ client
 const account = new Account(client);
 const avatars = new Avatars(client);
 const databases = new Databases(client);
-const storage = new Storage(client);
 
-export const createUser = async (
-  email: string,
-  password: string,
-  username: string
-) => {
+export const createUser = async (form: FormStateSignUp) => {
   try {
+    const { email, password, username } = form;
     const newAccount = await account.create(
       ID.unique(),
       email,
@@ -63,7 +49,8 @@ export const createUser = async (
   }
 };
 
-export const signIn = async (email: string, password: string) => {
+export const signIn = async (form: FormStateSignIn) => {
+  const { email, password } = form;
   try {
     const session = await account.createEmailPasswordSession(email, password);
     if (!session) {
@@ -172,13 +159,6 @@ export const signOut = async () => {
     throw new Error(error instanceof Error ? error.message : String(error));
   }
 };
-
-interface Post {
-  title: string;
-  image: string;
-  description: string;
-  users: string;
-}
 
 export const createPost = async (post: Post) => {
   try {

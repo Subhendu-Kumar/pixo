@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { images } from "../../constants";
+import { FormStateSignIn } from "@/types";
 import { Link, router } from "expo-router";
 import { useAuth } from "@/context/provider";
 import FormField from "@/components/FormField";
@@ -10,11 +11,11 @@ import { View, Text, ScrollView, Image, Alert } from "react-native";
 
 const SignIn = () => {
   const { setUser, setIsLoggedIn } = useAuth();
-  const [form, setForm] = useState({
+  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
+  const [form, setForm] = useState<FormStateSignIn>({
     email: "",
     password: "",
   });
-  const [isSubmitting, setIsSubmitting] = useState<boolean>(false);
 
   const submit = async () => {
     if (!form.email || !form.password) {
@@ -23,7 +24,7 @@ const SignIn = () => {
     }
     setIsSubmitting(true);
     try {
-      await signIn(form.email, form.password);
+      await signIn(form);
       const res = await getCurrentUser();
       if (res) {
         setUser(res);

@@ -6,16 +6,17 @@
  * You can remove the `reset-project` script from package.json and safely delete this file after running it.
  */
 
-const fs = require("fs");
-const path = require("path");
+import { promises, existsSync } from "fs";
+import { join } from "path";
 
-const root = process.cwd();
-const oldDirs = ["app", "components", "hooks", "constants", "scripts"];
-const newDir = "app-example";
 const newAppDir = "app";
-const newDirPath = path.join(root, newDir);
+const root = process.cwd();
+const newDir = "app-example";
+const newDirPath = join(root, newDir);
+const oldDirs = ["app", "components", "hooks", "constants", "scripts"];
 
-const indexContent = `import { Text, View } from "react-native";
+const indexContent = `
+import { Text, View } from "react-native";
 
 export default function Index() {
   return (
@@ -32,7 +33,8 @@ export default function Index() {
 }
 `;
 
-const layoutContent = `import { Stack } from "expo-router";
+const layoutContent = `
+import { Stack } from "expo-router";
 
 export default function RootLayout() {
   return <Stack />;
@@ -42,15 +44,15 @@ export default function RootLayout() {
 const moveDirectories = async () => {
   try {
     // Create the app-example directory
-    await fs.promises.mkdir(newDirPath, { recursive: true });
+    await promises.mkdir(newDirPath, { recursive: true });
     console.log(`📁 /${newDir} directory created.`);
 
     // Move old directories to new app-example directory
     for (const dir of oldDirs) {
-      const oldDirPath = path.join(root, dir);
-      const newDirPath = path.join(root, newDir, dir);
-      if (fs.existsSync(oldDirPath)) {
-        await fs.promises.rename(oldDirPath, newDirPath);
+      const oldDirPath = join(root, dir);
+      const newDirPath = join(root, newDir, dir);
+      if (existsSync(oldDirPath)) {
+        await promises.rename(oldDirPath, newDirPath);
         console.log(`➡️ /${dir} moved to /${newDir}/${dir}.`);
       } else {
         console.log(`➡️ /${dir} does not exist, skipping.`);
@@ -58,18 +60,18 @@ const moveDirectories = async () => {
     }
 
     // Create new /app directory
-    const newAppDirPath = path.join(root, newAppDir);
-    await fs.promises.mkdir(newAppDirPath, { recursive: true });
+    const newAppDirPath = join(root, newAppDir);
+    await promises.mkdir(newAppDirPath, { recursive: true });
     console.log("\n📁 New /app directory created.");
 
     // Create index.tsx
-    const indexPath = path.join(newAppDirPath, "index.tsx");
-    await fs.promises.writeFile(indexPath, indexContent);
+    const indexPath = join(newAppDirPath, "index.tsx");
+    await promises.writeFile(indexPath, indexContent);
     console.log("📄 app/index.tsx created.");
 
     // Create _layout.tsx
-    const layoutPath = path.join(newAppDirPath, "_layout.tsx");
-    await fs.promises.writeFile(layoutPath, layoutContent);
+    const layoutPath = join(newAppDirPath, "_layout.tsx");
+    await promises.writeFile(layoutPath, layoutContent);
     console.log("📄 app/_layout.tsx created.");
 
     console.log("\n✅ Project reset complete. Next steps:");

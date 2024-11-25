@@ -1,4 +1,3 @@
-import React from "react";
 import { icons } from "@/constants";
 import { router } from "expo-router";
 import useAppWrite from "@/lib/useAppWrite";

@@ -1,16 +1,10 @@
-import React from "react";
 import { router } from "expo-router";
 import { images } from "../constants";
 import CustomButton from "./CustomButton";
+import { EmptyStateProps } from "@/types";
 import { View, Text, Image } from "react-native";
 
-const EmptyState = ({
-  title,
-  subTitle,
-}: {
-  title: string;
-  subTitle: string;
-}) => {
+const EmptyState = ({ title, subTitle }: EmptyStateProps) => {
   return (
     <View className="justify-center items-center px-4">
       <Image

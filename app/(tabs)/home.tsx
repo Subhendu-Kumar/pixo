@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import useAppWrite from "@/lib/useAppWrite";
 import { icons, images } from "@/constants";
 import PostCard from "@/components/PostCard";
@@ -11,10 +11,11 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { View, Text, FlatList, Image, RefreshControl } from "react-native";
 
 const HomePage = () => {
-  const { data: posts, isLoading, reFetch } = useAppWrite(getAllPosts);
-  const { data: latestPosts } = useAppWrite(getLatestPosts);
-  const [refreshing, setRefreshing] = useState<boolean>(false);
   const { user } = useAuth();
+  const { data: latestPosts } = useAppWrite(getLatestPosts);
+  const { data: posts, isLoading, reFetch } = useAppWrite(getAllPosts);
+
+  const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const onRefresh = async () => {
     setRefreshing(true);

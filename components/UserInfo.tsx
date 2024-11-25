@@ -1,18 +1,11 @@
-import React from "react";
+import { UserInfoProps } from "@/types";
 import { View, Text } from "react-native";
-
-interface UserInfoProps {
-  title?: string;
-  subTitle?: string;
-  titleStyle?: string;
-  containerStyle?: string;
-}
 
 const UserInfo = ({
   title,
-  containerStyle,
-  titleStyle,
   subTitle,
+  titleStyle,
+  containerStyle,
 }: UserInfoProps) => {
   return (
     <View className={containerStyle}>
