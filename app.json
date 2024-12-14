@@ -41,6 +41,15 @@
     ],
     "experiments": {
       "typedRoutes": true
-    }
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "0a142700-b6e9-4c94-acc6-f53cbdc2426a"
+      }
+    },
+    "owner": "skopchintu"
   }
 }
