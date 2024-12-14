@@ -7,13 +7,22 @@ import UserInfo from "@/components/UserInfo";
 import EmptyState from "@/components/EmptyState";
 import { getPostByUserId, signOut } from "@/lib/appWrite";
 import { SafeAreaView } from "react-native-safe-area-context";
-import { View, Image, Alert, FlatList, TouchableOpacity } from "react-native";
+import {
+  View,
+  Image,
+  Alert,
+  FlatList,
+  TouchableOpacity,
+  RefreshControl,
+} from "react-native";
+import { useState } from "react";
 
 const Profile = () => {
   const { user, setUser, setIsLoggedIn } = useAuth();
   const { data: posts, isLoading } = useAppWrite(() =>
     getPostByUserId(user?.$id)
   );
+  const [refreshing, setRefreshing] = useState<boolean>(false);
 
   const logout = async () => {
     const session = await signOut();
@@ -24,6 +33,12 @@ const Profile = () => {
     } else {
       Alert.alert("Logout failed");
     }
+  };
+
+  const onRefresh = async () => {
+    setRefreshing(true);
+    getPostByUserId(user?.$id);
+    setRefreshing(false);
   };
 
   return (
@@ -41,6 +56,9 @@ const Profile = () => {
           data={posts}
           keyExtractor={(item) => item.$id.toString()}
           renderItem={({ item }) => <PostCard post={item} />}
+          refreshControl={
+            <RefreshControl refreshing={refreshing} onRefresh={onRefresh} />
+          }
           ListEmptyComponent={() => (
             <EmptyState
               title="No images found"

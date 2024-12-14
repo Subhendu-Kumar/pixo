@@ -1,6 +1,6 @@
 import { Post2 } from "@/types";
 import { icons } from "@/constants";
-import { View, Text, Image, TouchableOpacity } from "react-native";
+import { View, Text, Image } from "react-native";
 
 const PostCard = ({
   post: {
@@ -31,8 +31,8 @@ const PostCard = ({
               {title}
             </Text>
             <Text
-              className="text-xs text-gray-500 font-psemibold"
               numberOfLines={1}
+              className="text-xs text-gray-500 font-psemibold"
             >
               {username}
             </Text>
@@ -42,16 +42,13 @@ const PostCard = ({
           <Image source={icons.menu} className="w-5 h-5" resizeMode="contain" />
         </View>
       </View>
-      <TouchableOpacity
-        className="w-full h-60 rounded-xl mt-3 justify-center items-center"
-        activeOpacity={0.7}
-      >
+      <View className="w-full h-60 rounded-xl mt-3 justify-center items-center">
         <Image
+          resizeMode="cover"
           source={{ uri: image }}
           className="w-full h-full rounded-xl mt-3"
-          resizeMode="cover"
         />
-      </TouchableOpacity>
+      </View>
     </View>
   );
 };

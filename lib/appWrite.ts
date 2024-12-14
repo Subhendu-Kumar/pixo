@@ -44,7 +44,6 @@ export const createUser = async (form: FormStateSignUp) => {
     }
     return newUser;
   } catch (error) {
-    console.log(error);
     throw new Error(error instanceof Error ? error.message : String(error));
   }
 };
@@ -58,7 +57,6 @@ export const signIn = async (form: FormStateSignIn) => {
     }
     return session;
   } catch (error) {
-    console.log(error);
     throw new Error(error instanceof Error ? error.message : String(error));
   }
 };
@@ -79,7 +77,6 @@ export const getCurrentUser = async () => {
     }
     return user.documents[0];
   } catch (error) {
-    console.log(error);
     throw new Error(error instanceof Error ? error.message : String(error));
   }
 };

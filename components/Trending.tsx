@@ -1,7 +1,7 @@
+import { View, FlatList, ImageBackground } from "react-native";
 import { useState } from "react";
 import { zoomIn, zoomOut } from "@/lib/utils";
 import * as Animatable from "react-native-animatable";
-import { FlatList, ImageBackground, TouchableOpacity } from "react-native";
 
 const TrendingItem = ({ post, activeItem }: { post: any; activeItem: any }) => {
   return (
@@ -10,16 +10,13 @@ const TrendingItem = ({ post, activeItem }: { post: any; activeItem: any }) => {
       animation={activeItem === post.$id ? zoomIn : zoomOut}
       duration={500}
     >
-      <TouchableOpacity
-        className="justify-center items-center"
-        activeOpacity={0.7}
-      >
+      <View className="justify-center items-center">
         <ImageBackground
           source={{ uri: post.image }}
           className="w-52 h-72 rounded-2xl my-5 overflow-hidden shadow-lg"
           resizeMode="cover"
         />
-      </TouchableOpacity>
+      </View>
     </Animatable.View>
   );
 };

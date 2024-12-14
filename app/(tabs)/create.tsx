@@ -31,12 +31,10 @@ const Create = () => {
 
   const openImagePicker = async () => {
     try {
-      console.log("inside openImagePicker");
       const res = await DocumentPicker.getDocumentAsync({
         type: ["image/*"],
         copyToCacheDirectory: true,
       });
-      console.log("document picker response", res);
       if (res.canceled) {
         return Alert.alert("No image selected");
       }
@@ -51,14 +49,11 @@ const Create = () => {
         name: file.name,
         type: file.mimeType ?? "application/octet-stream",
       } as any);
-      console.log("uploading image");
       const response = await axios.post(`${BASE_URL}/upload/image`, image, {
         headers: {
           "Content-Type": "multipart/form-data",
         },
       });
-      console.log("response received");
-      console.log(response);
       if (response.status === 200) {
         setForm({ ...form, image: response.data.data.url });
         Alert.alert(response.data.message);
@@ -70,7 +65,6 @@ const Create = () => {
         return Alert.alert("Error", response.data.message);
       }
     } catch (error) {
-      console.log("error", error);
       Alert.alert("Error", (error as Error).message);
     } finally {
       setImageUploading(false);
