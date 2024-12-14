@@ -73,7 +73,6 @@ export interface AuthContextType {
 export interface TabIconProps {
   icon: any;
   color: string;
-  focused: boolean;
 }
 
 export interface FormStateCreatePost {

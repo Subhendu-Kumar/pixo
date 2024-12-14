@@ -3,7 +3,7 @@ import { TabIconProps } from "@/types";
 import { icons } from "../../constants";
 import { View, Image } from "react-native";
 
-const TabIcon = ({ icon, color, focused }: TabIconProps) => {
+const TabIcon = ({ icon, color }: TabIconProps) => {
   return (
     <View className="items-center justify-center">
       <Image
@@ -28,8 +28,8 @@ const TabsLayout = () => {
         name="home"
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon icon={icons.home} color={color} focused={focused} />
+          tabBarIcon: ({ color }) => (
+            <TabIcon icon={icons.home} color={color} />
           ),
         }}
       />
@@ -37,8 +37,8 @@ const TabsLayout = () => {
         name="create"
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon icon={icons.plus} color={color} focused={focused} />
+          tabBarIcon: ({ color }) => (
+            <TabIcon icon={icons.plus} color={color} />
           ),
         }}
       />
@@ -46,8 +46,8 @@ const TabsLayout = () => {
         name="profile"
         options={{
           headerShown: false,
-          tabBarIcon: ({ color, focused }) => (
-            <TabIcon icon={icons.profile} color={color} focused={focused} />
+          tabBarIcon: ({ color }) => (
+            <TabIcon icon={icons.profile} color={color} />
           ),
         }}
       />
