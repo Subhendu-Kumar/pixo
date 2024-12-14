@@ -1,11 +1,11 @@
 {
   "expo": {
-    "name": "shareimg",
-    "slug": "shareimg",
+    "name": "pixo",
+    "slug": "pixo",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "scheme": "shareimg",
+    "scheme": "pixo",
     "userInterfaceStyle": "automatic",
     "splash": {
       "image": "./assets/splash.png",
