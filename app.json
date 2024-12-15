@@ -7,11 +7,6 @@
     "icon": "./assets/icon.png",
     "scheme": "pixo",
     "userInterfaceStyle": "automatic",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "newArchEnabled": true,
     "ios": {
       "supportsTablet": true,
@@ -33,6 +28,7 @@
       [
         "expo-splash-screen",
         {
+          "image": "./assets/splash.png",
           "imageWidth": 200,
           "resizeMode": "contain",
           "backgroundColor": "#ffffff"
